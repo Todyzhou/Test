@@ -1,0 +1,253 @@
+/* 响应式设计 */
+
+/* 平板设备 */
+@media (max-width: 768px) {
+    .container {
+        max-width: 90%;
+    }
+    
+    .auth-card {
+        padding: 30px 25px;
+    }
+    
+    .auth-header h1 {
+        font-size: 24px;
+    }
+    
+    .form-options {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .forgot-link {
+        align-self: flex-end;
+    }
+}
+
+/* 手机设备 */
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        max-width: 100%;
+    }
+    
+    .auth-card {
+        padding: 25px 20px;
+        border-radius: 8px;
+    }
+    
+    .auth-header h1 {
+        font-size: 22px;
+    }
+    
+    .auth-header p {
+        font-size: 13px;
+    }
+    
+    .form-group input {
+        padding: 10px 14px;
+        font-size: 16px; /* 防止iOS缩放 */
+    }
+    
+    .btn {
+        padding: 12px;
+        font-size: 15px;
+    }
+    
+    .form-options {
+        margin-bottom: 20px;
+    }
+    
+    .checkbox-container {
+        font-size: 13px;
+    }
+    
+    .forgot-link {
+        font-size: 13px;
+    }
+    
+    .auth-links p {
+        font-size: 13px;
+    }
+}
+
+/* 超小屏幕 */
+@media (max-width: 320px) {
+    .auth-card {
+        padding: 20px 15px;
+    }
+    
+    .auth-header h1 {
+        font-size: 20px;
+    }
+    
+    .form-group {
+        margin-bottom: 15px;
+    }
+    
+    .form-group input {
+        padding: 8px 12px;
+    }
+    
+    .btn {
+        padding: 10px;
+        font-size: 14px;
+    }
+}
+
+/* 大屏幕优化 */
+@media (min-width: 1200px) {
+    .container {
+        max-width: 450px;
+    }
+    
+    .auth-card {
+        padding: 50px;
+    }
+    
+    .auth-header h1 {
+        font-size: 32px;
+    }
+    
+    .auth-header p {
+        font-size: 15px;
+    }
+}
+
+/* 横屏手机 */
+@media (max-height: 500px) and (orientation: landscape) {
+    body {
+        padding: 5px;
+    }
+    
+    .auth-card {
+        padding: 20px;
+    }
+    
+    .auth-header {
+        margin-bottom: 20px;
+    }
+    
+    .auth-header h1 {
+        font-size: 20px;
+        margin-bottom: 5px;
+    }
+    
+    .form-group {
+        margin-bottom: 15px;
+    }
+    
+    .auth-links {
+        margin-top: 15px;
+        padding-top: 15px;
+    }
+}
+
+/* 高对比度模式支持 */
+@media (prefers-contrast: high) {
+    .auth-card {
+        border: 2px solid #000;
+    }
+    
+    .form-group input {
+        border-color: #000;
+    }
+    
+    .form-group input:focus {
+        border-color: #0066cc;
+        box-shadow: 0 0 0 2px #0066cc;
+    }
+    
+    .btn-primary {
+        background: #0066cc;
+        border: 2px solid #000;
+    }
+}
+
+/* 减少动画模式 */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    .auth-card {
+        animation: none;
+    }
+}
+
+/* 深色模式支持 */
+@media (prefers-color-scheme: dark) {
+    body {
+        background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    }
+    
+    .auth-card {
+        background: #2c3e50;
+        color: #ecf0f1;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+    }
+    
+    .auth-header h1 {
+        color: #ecf0f1;
+    }
+    
+    .auth-header p {
+        color: #bdc3c7;
+    }
+    
+    .form-group label {
+        color: #ecf0f1;
+    }
+    
+    .form-group input {
+        background-color: #34495e;
+        border-color: #4a5f7a;
+        color: #ecf0f1;
+    }
+    
+    .form-group input:focus {
+        background-color: #3c5a78;
+        border-color: #667eea;
+    }
+    
+    .checkbox-container {
+        color: #bdc3c7;
+    }
+    
+    .checkmark {
+        border-color: #4a5f7a;
+    }
+    
+    .auth-links {
+        border-top-color: #4a5f7a;
+    }
+    
+    .auth-links p {
+        color: #bdc3c7;
+    }
+    
+    .message.success {
+        background-color: #1e3a2e;
+        color: #4caf50;
+        border-color: #2e5233;
+    }
+    
+    .message.error {
+        background-color: #3a1e1e;
+        color: #f44336;
+        border-color: #522e2e;
+    }
+    
+    .message.info {
+        background-color: #1e2a3a;
+        color: #2196f3;
+        border-color: #2e3f52;
+    }
+}
+
