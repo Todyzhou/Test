@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人主页 - 话题社区</title>
+    <link rel="stylesheet" href="../assets/css/dark-theme.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/community.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .profile-header {
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            border-radius: var(--radius-lg);
+            padding: var(--space-2xl);
+            margin-bottom: var(--space-lg);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .profile-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 1;
+        }
+        
+        .profile-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            gap: var(--space-xl);
+        }
+        
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: var(--radius-full);
+            border: 4px solid rgba(255, 255, 255, 0.2);
+            object-fit: cover;
+        }
+        
+        .profile-info {
+            flex: 1;
+            color: white;
+        }
+        
+        .profile-name {
+            font-size: var(--text-3xl);
+            font-weight: 700;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .profile-handle {
+            font-size: var(--text-lg);
+            opacity: 0.8;
+            margin-bottom: var(--space-md);
+        }
+        
+        .profile-bio {
+            font-size: var(--text-base);
+            line-height: 1.6;
+            margin-bottom: var(--space-lg);
+            opacity: 0.9;
+        }
+        
+        .profile-meta {
+            display: flex;
+            gap: var(--space-lg);
+            font-size: var(--text-sm);
+            opacity: 0.8;
+        }
+        
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+        
+        .profile-actions {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+        }
+        
+        .follow-user-btn {
+            padding: var(--space-sm) var(--space-xl);
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: var(--radius-full);
+            font-weight: 600;
+            transition: all var(--transition-fast);
+            backdrop-filter: blur(10px);
+        }
+        
+        .follow-user-btn:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-1px);
+        }
+        
+        .follow-user-btn.following {
+            background-color: rgba(249, 24, 128, 0.2);
+            border-color: rgba(249, 24, 128, 0.5);
+        }
+        
+        .message-btn {
+            padding: var(--space-sm) var(--space-xl);
+            background-color: transparent;
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: var(--radius-full);
+            font-weight: 600;
+            transition: all var(--transition-fast);
+        }
+        
+        .message-btn:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .profile-stats {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-primary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            margin-bottom: var(--space-lg);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: var(--space-lg);
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: var(--space-md);
+            border-radius: var(--radius-md);
+            transition: background-color var(--transition-fast);
+            cursor: pointer;
+        }
+        
+        .stat-item:hover {
+            background-color: var(--hover-bg);
+        }
+        
+        .stat-number {
+            font-size: var(--text-2xl);
+            font-weight: 700;
+            color: var(--text-primary);
+            display: block;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .stat-label {
+            font-size: var(--text-sm);
+            color: var(--text-muted);
+        }
+        
+        .profile-tabs {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-primary);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--space-lg);
+            overflow: hidden;
+        }
+        
+        .tab-list {
+            display: flex;
+            border-bottom: 1px solid var(--border-primary);
+        }
+        
+        .tab-button {
+            flex: 1;
+            padding: var(--space-md) var(--space-lg);
+            background: transparent;
+            color: var(--text-secondary);
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            position: relative;
+        }
+        
+        .tab-button:hover {
+            background-color: var(--hover-bg);
+            color: var(--text-primary);
+        }
+        
+        .tab-button.active {
+            color: var(--accent-blue);
+            background-color: rgba(29, 155, 240, 0.1);
+        }
+        
+        .tab-button.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: var(--accent-blue);
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: var(--space-2xl);
+            color: var(--text-muted);
+        }
+        
+        .empty-state i {
+            font-size: 48px;
+            margin-bottom: var(--space-lg);
+            opacity: 0.5;
+        }
+        
+        .empty-state h3 {
+            font-size: var(--text-xl);
+            margin-bottom: var(--space-md);
+            color: var(--text-secondary);
+        }
+        
+        .empty-state p {
+            font-size: var(--text-base);
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 768px) {
+            .profile-content {
+                flex-direction: column;
+                text-align: center;
+                gap: var(--space-lg);
+            }
+            
+            .profile-avatar {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .profile-name {
+                font-size: var(--text-2xl);
+            }
+            
+            .profile-actions {
+                flex-direction: row;
+                justify-content: center;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .tab-list {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body class="dark-theme">
+    <!-- 顶部导航栏 -->
+    <header class="top-nav">
+        <div class="nav-container">
+            <div class="nav-left">
+                <a href="../community.html" class="logo">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>返回</span>
+                </a>
+            </div>
+            
+            <div class="nav-center">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="搜索话题、用户或内容..." id="searchInput">
+                </div>
+            </div>
+            
+            <div class="nav-right">
+                <button class="nav-btn" id="notificationBtn">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge">3</span>
+                </button>
+                <button class="nav-btn" id="messageBtn">
+                    <i class="fas fa-envelope"></i>
+                    <span class="notification-badge">1</span>
+                </button>
+                <div class="user-menu">
+                    <img src="https://via.placeholder.com/32x32/4a5568/ffffff?text=U" alt="用户头像" class="user-avatar">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主要内容区域 -->
+    <main class="main-container">
+        <!-- 中间内容区域 -->
+        <section class="main-content" style="grid-column: 1 / -1; max-width: 800px; margin: 0 auto;">
+            <!-- 个人资料头部 -->
+            <div class="profile-header">
+                <div class="profile-content">
+                    <img src="https://via.placeholder.com/120x120/4a5568/ffffff?text=A" alt="用户头像" class="profile-avatar" id="profileAvatar">
+                    
+                    <div class="profile-info">
+                        <h1 class="profile-name" id="profileName">Alice Chen</h1>
+                        <p class="profile-handle" id="profileHandle">@alice_dev</p>
+                        <p class="profile-bio" id="profileBio">
+                            前端工程师 | 设计爱好者 | 开源贡献者<br>
+                            热爱技术，喜欢分享，相信代码可以改变世界 ✨
+                        </p>
+                        
+                        <div class="profile-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>北京，中国</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-link"></i>
+                                <a href="#" style="color: inherit;">alice-dev.com</a>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-calendar-alt"></i>
+                                <span>2021年3月加入</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="profile-actions">
+                        <button class="follow-user-btn" id="followUserBtn">
+                            <i class="fas fa-plus"></i>
+                            关注
+                        </button>
+                        <button class="message-btn" id="messageUserBtn">
+                            <i class="fas fa-envelope"></i>
+                            私信
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 统计数据 -->
+            <div class="profile-stats">
+                <div class="stats-grid">
+                    <div class="stat-item" data-tab="posts">
+                        <span class="stat-number" id="postsCount">1,234</span>
+                        <span class="stat-label">动态</span>
+                    </div>
+                    <div class="stat-item" data-tab="following">
+                        <span class="stat-number" id="followingCount">567</span>
+                        <span class="stat-label">关注</span>
+                    </div>
+                    <div class="stat-item" data-tab="followers">
+                        <span class="stat-number" id="followersCount">8,901</span>
+                        <span class="stat-label">粉丝</span>
+                    </div>
+                    <div class="stat-item" data-tab="likes">
+                        <span class="stat-number" id="likesCount">23.4K</span>
+                        <span class="stat-label">获赞</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 内容标签页 -->
+            <div class="profile-tabs">
+                <div class="tab-list">
+                    <button class="tab-button active" data-tab="posts">动态</button>
+                    <button class="tab-button" data-tab="replies">回复</button>
+                    <button class="tab-button" data-tab="media">媒体</button>
+                    <button class="tab-button" data-tab="likes">喜欢</button>
+                </div>
+            </div>
+
+            <!-- 内容区域 -->
+            <div class="tab-content" id="tabContent">
+                <!-- 动态流 -->
+                <div class="timeline" id="timeline">
+                    <!-- 动态卡片将通过JavaScript动态生成 -->
+                </div>
+                
+                <!-- 加载更多 -->
+                <div class="load-more" id="loadMore">
+                    <button class="load-btn">加载更多</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 脚本文件 -->
+    <script src="../assets/js/utils.js"></script>
+    <script src="../assets/js/timeline.js"></script>
+    <script src="../assets/js/profile.js"></script>
+    <script>
+        // 初始化个人主页
+        document.addEventListener('DOMContentLoaded', function() {
+            initProfilePage();
+        });
+    </script>
+</body>
+</html>
+

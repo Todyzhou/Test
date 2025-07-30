@@ -359,9 +359,9 @@ function initLoginPage() {
             if (result.success) {
                 showMessage('登录成功，正在跳转...', 'success');
                 
-                // 模拟跳转到主页
+                // 跳转到社区主页
                 setTimeout(() => {
-                    showMessage('欢迎回来，' + result.user.username + '！', 'success');
+                    window.location.href = 'community.html';
                 }, 1000);
             } else {
                 showMessage(result.message, 'error');
@@ -590,4 +590,3 @@ function initResetPasswordPage() {
         }
     });
 }
-

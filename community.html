@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>话题社区 - 暗黑主题社交平台</title>
+    <link rel="stylesheet" href="assets/css/dark-theme.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="assets/css/community.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="dark-theme">
+    <!-- 顶部导航栏 -->
+    <header class="top-nav">
+        <div class="nav-container">
+            <div class="nav-left">
+                <div class="logo">
+                    <i class="fas fa-comments"></i>
+                    <span>话题社区</span>
+                </div>
+            </div>
+            
+            <div class="nav-center">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="搜索话题、用户或内容..." id="searchInput">
+                </div>
+            </div>
+            
+            <div class="nav-right">
+                <button class="nav-btn" id="notificationBtn">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge">3</span>
+                </button>
+                <button class="nav-btn" id="messageBtn">
+                    <i class="fas fa-envelope"></i>
+                    <span class="notification-badge">1</span>
+                </button>
+                <div class="user-menu">
+                    <img src="https://via.placeholder.com/32x32/4a5568/ffffff?text=U" alt="用户头像" class="user-avatar">
+                    <div class="dropdown-menu" id="userDropdown">
+                        <a href="pages/profile.html"><i class="fas fa-user"></i> 个人主页</a>
+                        <a href="#"><i class="fas fa-cog"></i> 设置</a>
+                        <a href="#"><i class="fas fa-moon"></i> 主题切换</a>
+                        <hr>
+                        <a href="index.html"><i class="fas fa-sign-out-alt"></i> 退出登录</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主要内容区域 -->
+    <main class="main-container">
+        <!-- 左侧导航菜单 -->
+        <aside class="sidebar-left">
+            <nav class="main-nav">
+                <a href="#" class="nav-item active">
+                    <i class="fas fa-home"></i>
+                    <span>首页</span>
+                </a>
+                <a href="pages/discover.html" class="nav-item">
+                    <i class="fas fa-compass"></i>
+                    <span>发现</span>
+                </a>
+                <a href="pages/notifications.html" class="nav-item">
+                    <i class="fas fa-bell"></i>
+                    <span>通知</span>
+                    <span class="nav-badge">3</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>私信</span>
+                    <span class="nav-badge">1</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="fas fa-bookmark"></i>
+                    <span>收藏</span>
+                </a>
+                <a href="pages/profile.html" class="nav-item">
+                    <i class="fas fa-user"></i>
+                    <span>个人主页</span>
+                </a>
+            </nav>
+            
+            <button class="compose-btn" id="composeBtn">
+                <i class="fas fa-plus"></i>
+                <span>发布动态</span>
+            </button>
+        </aside>
+
+        <!-- 中间内容区域 -->
+        <section class="main-content">
+            <!-- 动态发布器 -->
+            <div class="post-composer" id="postComposer">
+                <div class="composer-header">
+                    <img src="https://via.placeholder.com/40x40/4a5568/ffffff?text=U" alt="用户头像" class="user-avatar">
+                    <div class="composer-input">
+                        <textarea placeholder="分享你的想法..." id="postContent" maxlength="280"></textarea>
+                        <div class="composer-tools">
+                            <div class="tools-left">
+                                <button class="tool-btn" title="添加图片">
+                                    <i class="fas fa-image"></i>
+                                </button>
+                                <button class="tool-btn" title="添加话题">
+                                    <i class="fas fa-hashtag"></i>
+                                </button>
+                                <button class="tool-btn" title="提及用户">
+                                    <i class="fas fa-at"></i>
+                                </button>
+                                <button class="tool-btn" title="添加位置">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </button>
+                            </div>
+                            <div class="tools-right">
+                                <span class="char-count">0/280</span>
+                                <button class="post-btn" id="publishBtn" disabled>发布</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 动态流 -->
+            <div class="timeline" id="timeline">
+                <!-- 动态卡片将通过JavaScript动态生成 -->
+            </div>
+            
+            <!-- 加载更多 -->
+            <div class="load-more" id="loadMore">
+                <button class="load-btn">加载更多</button>
+            </div>
+        </section>
+
+        <!-- 右侧推荐区域 -->
+        <aside class="sidebar-right">
+            <!-- 热门话题 -->
+            <div class="widget">
+                <div class="widget-header">
+                    <h3>热门话题</h3>
+                </div>
+                <div class="widget-content">
+                    <div class="topic-item">
+                        <div class="topic-info">
+                            <span class="topic-name">#前端开发</span>
+                            <span class="topic-count">12.5K 讨论</span>
+                        </div>
+                    </div>
+                    <div class="topic-item">
+                        <div class="topic-info">
+                            <span class="topic-name">#人工智能</span>
+                            <span class="topic-count">8.3K 讨论</span>
+                        </div>
+                    </div>
+                    <div class="topic-item">
+                        <div class="topic-info">
+                            <span class="topic-name">#设计灵感</span>
+                            <span class="topic-count">6.7K 讨论</span>
+                        </div>
+                    </div>
+                    <div class="topic-item">
+                        <div class="topic-info">
+                            <span class="topic-name">#科技资讯</span>
+                            <span class="topic-count">15.2K 讨论</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="widget-footer">
+                    <a href="pages/discover.html">查看更多</a>
+                </div>
+            </div>
+
+            <!-- 推荐用户 -->
+            <div class="widget">
+                <div class="widget-header">
+                    <h3>推荐关注</h3>
+                </div>
+                <div class="widget-content">
+                    <div class="user-item">
+                        <img src="https://via.placeholder.com/40x40/4a5568/ffffff?text=A" alt="用户头像" class="user-avatar">
+                        <div class="user-info">
+                            <div class="user-name">Alice Chen</div>
+                            <div class="user-desc">前端工程师 | 设计爱好者</div>
+                        </div>
+                        <button class="follow-btn">关注</button>
+                    </div>
+                    <div class="user-item">
+                        <img src="https://via.placeholder.com/40x40/4a5568/ffffff?text=B" alt="用户头像" class="user-avatar">
+                        <div class="user-info">
+                            <div class="user-name">Bob Wang</div>
+                            <div class="user-desc">AI研究员 | 技术博主</div>
+                        </div>
+                        <button class="follow-btn">关注</button>
+                    </div>
+                    <div class="user-item">
+                        <img src="https://via.placeholder.com/40x40/4a5568/ffffff?text=C" alt="用户头像" class="user-avatar">
+                        <div class="user-info">
+                            <div class="user-name">Carol Li</div>
+                            <div class="user-desc">产品经理 | 创业者</div>
+                        </div>
+                        <button class="follow-btn">关注</button>
+                    </div>
+                </div>
+                <div class="widget-footer">
+                    <a href="#">查看更多</a>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <!-- 脚本文件 -->
+    <script src="assets/js/utils.js"></script>
+    <script src="assets/js/post-composer.js"></script>
+    <script src="assets/js/timeline.js"></script>
+    <script src="assets/js/community.js"></script>
+    <script>
+        // 初始化社区页面
+        document.addEventListener('DOMContentLoaded', function() {
+            initCommunityPage();
+        });
+    </script>
+</body>
+</html>
+
